@@ -401,7 +401,7 @@ var Select = React.createClass({
 	},
 
 	addValue: function addValue(value) {
-		this.setValue(this.state.values.concat(value));
+		this.setValue(value);
 	},
 
 	popValue: function popValue() {
@@ -436,6 +436,11 @@ var Select = React.createClass({
 
 	fireChangeEvent: function fireChangeEvent(newState) {
 		if (newState.value !== this.state.value && this.props.onChange) {
+
+			this.setState({
+				inputValue: ''
+			});
+
 			this.props.onChange(newState.value, newState.values);
 		}
 	},
@@ -443,6 +448,7 @@ var Select = React.createClass({
 	handleMouseDown: function handleMouseDown(event) {
 		// if the event was triggered by a mousedown and not the primary
 		// button, or if the component is disabled, ignore it.
+
 		if (this.props.disabled || event.type === 'mousedown' && event.button !== 0) {
 			return;
 		}
@@ -468,6 +474,7 @@ var Select = React.createClass({
 	},
 
 	handleMouseDownOnMenu: function handleMouseDownOnMenu(event) {
+
 		// if the event was triggered by a mousedown and not the primary
 		// button, or if the component is disabled, ignore it.
 		if (this.props.disabled || event.type === 'mousedown' && event.button !== 0) {
@@ -478,6 +485,7 @@ var Select = React.createClass({
 	},
 
 	handleMouseDownOnArrow: function handleMouseDownOnArrow(event) {
+
 		// if the event was triggered by a mousedown and not the primary
 		// button, or if the component is disabled, ignore it.
 		if (this.props.disabled || event.type === 'mousedown' && event.button !== 0) {
@@ -583,6 +591,9 @@ var Select = React.createClass({
 				}
 				break;
 			default:
+				if (this.state.value) {
+					this.clearValue(event);
+				}
 				return;
 		}
 		event.preventDefault();

@@ -506,7 +506,11 @@ var Select = React.createClass({
 					return;
 				}
 			break;
-			default: return;
+			default:
+				if (this.state.value) {
+					this.clearValue(event);
+				}
+				return;
 		}
 		event.preventDefault();
 	},
