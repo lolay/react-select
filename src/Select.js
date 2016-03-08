@@ -468,6 +468,18 @@ var Select = React.createClass({
 	handleKeyDown (event) {
 		if (this.props.disabled) return;
 		switch (event.keyCode) {
+
+			case (0 || 32):
+				var filteredOptions = this.filterOptions(this.state.options);
+
+				for (var i = 0; i < filteredOptions.length; i++) {
+					if (filteredOptions[i].label.toLowerCase() == this.state.inputValue.toLowerCase()) {
+						event.preventDefault();
+						break;
+					}
+				}
+				return;
+
 			case 8: // backspace
 				if (!this.state.inputValue && this.props.backspaceRemoves) {
 					event.preventDefault();
